@@ -26,8 +26,8 @@ func loadRoutes() *chi.Mux {
 func loadOrdersRoutes(router chi.Router) {
 	orderHandler := &handler.Order{}
 
-	router.Get("/list", orderHandler.List)
-	router.Post("/create", orderHandler.Create)
+	router.Get("/", orderHandler.List)
+	router.Post("/", orderHandler.Create)
 	router.Get("/{id}", orderHandler.GetByID)
 	router.Put("/{id}", orderHandler.UpdateById)
 	router.Delete("/{id}", orderHandler.DeleteById)
