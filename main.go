@@ -1,35 +1,18 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"github.com/go-chi/chi/v5/middleware"
-	"net/http"
-
-	"github.com/go-chi/chi/v5"
-	_ "github.com/go-chi/chi/v5/middleware"
+	"github.com/tupis/microsservice-go-chi-redis/application"
 )
 
 func main() {
+	app := application.New()
 
-	router := chi.NewRouter()
-
-	router.Use(middleware.Logger)
-
-	router.Get("/hello", basicHandler)
-
-	server := &http.Server{
-		Addr:    ":3000",
-		Handler: router,
-	}
-
-	err := server.ListenAndServe()
+	err := app.Start(context.TODO())
 
 	if err != nil {
-		fmt.Println("failed to listen to server", err)
+		fmt.Errorf("Failed to start app: %w", err)
 	}
 
-}
-
-func basicHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("World"))
 }
